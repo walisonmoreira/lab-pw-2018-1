@@ -14,18 +14,25 @@ public class MaiorMenorController extends HttpServlet {
             HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
 
-        String idadeStr = request.getParameter("idade");
+    	//Preparando os dados para o model.
+
+    	String idadeStr = request.getParameter("idade");
         String mensagem = "Informe a idade.";
         if (idadeStr != null && !idadeStr.isEmpty()) {
             int idade = Integer.parseInt(idadeStr);
-            if (idade >= 18) {
-                mensagem = "Maior de idade.";
-            } else {
-                mensagem = "Menor de idade.";
-            }
+
+            //Executando o model.
+            
+            mensagem = MaiorMenorModel.calcular(idade);
         }
 
-        //"Imprimir a mensagem para o navegador."
-        response.getOutputStream().print("Mensagem: " + mensagem);
+        //Adiciona a variável na requisição para o JSP trabalhar.
+        
+        request.setAttribute("mensagem", mensagem);
+        
+        //Redireciona requisição para o JSP.
+        request.
+        	getRequestDispatcher("/exemplo-mvc/maior-menor-view.jsp").
+        	forward(request, response);
     }
 }
