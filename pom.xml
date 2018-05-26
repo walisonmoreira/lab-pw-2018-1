@@ -11,7 +11,7 @@
   <!-- Identificação do grupo do projeto. -->
   <groupId>br.ufg.inf.si</groupId>
   <!-- Identificação do projeto. -->
-  <artifactId>pw-2018-1</artifactId>
+  <artifactId>lab-pw-2018-1</artifactId>
   <!-- Versão do projeto. Versões terminadas em "-SNAPSHOT" são tratadas pelo Maven como "em construção". -->
   <version>1.0-SNAPSHOT</version>
   <!-- Tipo do projeto. "war" (projetos web padrão) e "jar" (bibliotecas java) são alguns dos tipos válidos. -->
