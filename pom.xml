@@ -1,37 +1,62 @@
+<!-- POM (Project Object Model). -->
+<!-- As declarações XML são opcionais mas ajudam muito num ambiente de desenvolvimento como o Eclipse. Poderia ser apenas "<project>". -->
 <project
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns="http://maven.apache.org/POM/4.0.0"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
+  <!-- Versão das definições do POM. -->
   <modelVersion>4.0.0</modelVersion>
 
-  <!-- Informações de identificação do projeto. -->
-  <groupId>br.ufg.inf.si.pw</groupId>
-  <artifactId>ufg-inf-si-pw-2018-1</artifactId>
+  <!-- Identificação do grupo do projeto. -->
+  <groupId>br.ufg.inf.si</groupId>
+  <!-- Identificação do projeto. -->
+  <artifactId>pw-2018-1</artifactId>
+  <!-- Versão do projeto. Versões terminadas em "-SNAPSHOT" são tratadas pelo Maven como "em construção". -->
   <version>1.0-SNAPSHOT</version>
+  <!-- Tipo do projeto. "war" (projetos web padrão) e "jar" (bibliotecas java) são alguns dos tipos válidos. -->
   <packaging>war</packaging>
 
+  <!-- Propriedades usadas pelo Maven e seus plugins. -->
+  <properties>
+    <!-- Os arquivos do projeto serão, por padrão, escritos em UTF-8. -->
+    <project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
+    <!-- A versão do Java no código fonte será a 1.8. -->
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <!-- A versão do Java no código binários será a 1.8. -->
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <!-- Porta onde o Tomcat executará em desenvolvimento. O padrão é "8080". -->
+    <!-- Definir algo como "9090" diminui a chance de dar conflito de porta, já que a porta "8080" é bastante popular e já pode estar sendo usada.  -->
+    <maven.tomcat.port>9090</maven.tomcat.port>
+    <!-- URI do projeto no Tomcat. Precisa começar com "/". Exemplo: "/my-project" ficaria algo como "http://localhost:9090/my-project" -->
+    <maven.tomcat.path>/</maven.tomcat.path>
+  </properties>
+
   <dependencies>
-    <!-- Para Servlet versão 3 -->
+    <!-- Dependência com a biblioteca de Servlet versão 3. -->
     <dependency>
+      <!-- Identificação do grupo da biblioteca.  -->
       <groupId>javax.servlet</groupId>
+      <!-- Identificação da biblioteca.  -->
       <artifactId>javax.servlet-api</artifactId>
+      <!-- Versão da biblioteca.  -->
       <version>3.1.0</version>
-      <!-- Para não "empacotar" a biblioteca com a aplicação. O application server já possui essa biblioteca.  -->
+      <!-- Instrução que faz com que o Maven exclua essa biblioteca do pacote final do projeto. É que os servidores de aplicação já possuem essa biblioteca dentro deles.  -->
       <scope>provided</scope>
     </dependency>
-
   </dependencies>
 
+  <!-- Configurações de construção do projeto. -->
   <build>
     <plugins>
+      <!-- Plugin para executar e administrar o projeto no Tomcat 7. Site do plugin: http://tomcat.apache.org/maven-plugin-2.2/tomcat7-maven-plugin -->
       <plugin>
+        <!-- Identificação do grupo do plugin.  -->
         <groupId>org.apache.tomcat.maven</groupId>
+        <!-- Identificação do plugin.  -->
         <artifactId>tomcat7-maven-plugin</artifactId>
+        <!-- Versão do plugin. -->
         <version>2.2</version>
-        <configuration>
-          <port>9090</port>
-        </configuration>
       </plugin>
     </plugins>
   </build>

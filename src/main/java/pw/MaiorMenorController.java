@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(value = "/exemplo-mvc")
+@WebServlet(value = "/exemplo-mvc/maior-menor")
 public class MaiorMenorController extends HttpServlet {
     @Override
     protected void doGet(
