@@ -1,8 +1,12 @@
 # PW-2018-1
 
-## Para executar
+## Para executar o Tomcat
 
 `mvn tomcat7:run`
+
+## Para executar o Derby
+
+`mvn exec:java@derby-start`
 
 ## Arquivos
 
