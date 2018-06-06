@@ -1,4 +1,4 @@
-package pw.venda;
+package pw.venda.jdbc;
 
 import java.io.IOException;
 
@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(value = "/venda/vender")
+@WebServlet(value = "/venda-jdbc/venda")
 public class VendaController extends HttpServlet {
     @Override
     protected void doGet(
@@ -38,7 +38,7 @@ public class VendaController extends HttpServlet {
         
         //Redireciona requisição para o JSP.
         request.
-        	getRequestDispatcher("/venda/venda-view.jsp").
+        	getRequestDispatcher("/venda-jdbc/venda-view.jsp").
         	forward(request, response);
     }
 

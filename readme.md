@@ -11,3 +11,23 @@
 ## Arquivos
 
 `pom.xml` - Arquivo de configuração do projeto Maven.
+
+## Banco de Dados
+
+### URL JDBC
+
+`jdbc:derby://localhost:1527/vendadb`
+
+Usuário: app
+
+Senha: app
+
+### Tabelas
+
+`
+CREATE TABLE VENDA (
+  CODIGO VARCHAR(100),
+  PRODUTO VARCHAR(100),
+  QUANTIDADE INTEGER
+);
+`
