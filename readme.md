@@ -14,13 +14,13 @@
 
 ## Banco de Dados
 
-### URL JDBC
+### JDBC
 
-`jdbc:derby://localhost:1527/vendadb`
+URL: `jdbc:derby://localhost:1527/vendadb`
 
-Usuário: app
+Usuário: `app`
 
-Senha: app
+Senha: `app`
 
 ### Tabelas
 
