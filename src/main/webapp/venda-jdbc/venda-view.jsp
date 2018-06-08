@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<%@page import="pw.venda.jdbc.Venda"%>
+<%@page import="java.util.List"%>
 <html>
 <head>
 <title>Venda</title>
@@ -8,7 +10,7 @@
 <body style="margin-top: 15px">
   <div class="container">
     <div class="row">
-      <div class="col-md-offset-4 col-md-4">
+      <div class="col-md-offset-2 col-md-8">
         <ol class="breadcrumb">
           <li><a href="/">Menu</a></li>
           <li class="active">Venda</li>
@@ -40,11 +42,33 @@
                   placeholder="Quantidade"
                   class="form-control">
               </div>
-              <button class="btn btn-default">Gravar</button>
+              <button name="op" value="incluir" class="btn btn-default">Incluir</button>
+              <button name="op" value="salvar" class="btn btn-default">Salvar</button>
+              <button name="op" value="excluir" class="btn btn-default">Excluir</button>
             </form>
           </div>
         </div>
-        <div class="alert alert-info">${mensagem}</div>
+        <table class="table table-bordered table-striped">
+          <tr>
+            <td>Código</td>
+            <td>Produto</td>
+            <td>Quantidade</td>
+            <td>#</td>
+          </tr>
+          <%
+          List<Venda> vendas = (List<Venda>) request.getAttribute("vendas");
+          for (Venda v:vendas) {
+          %>
+            <tr>
+              <td><a href="venda?codigo=<%=v.getCodigo()%>&produto=<%=v.getProduto()%>&quantidade=<%=v.getQuantidade()%>"><%=v.getCodigo()%></a></td>
+              <td><%=v.getProduto()%></td>
+              <td><%=v.getQuantidade()%></td>
+              <td><a href="venda?op=excluir&codigo=<%=v.getCodigo()%>">Excluir</a></td>
+            </tr>
+          <%
+          }
+          %>
+        </table>
       </div>
     </div>
   </div>

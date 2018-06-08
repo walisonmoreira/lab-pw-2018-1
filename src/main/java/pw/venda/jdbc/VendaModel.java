@@ -3,49 +3,74 @@ package pw.venda.jdbc;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class VendaModel {
-  
-  private static VendaModel instance;
-  private Connection conexao;
-  
-  public static VendaModel getInstance() {
-    if (instance == null) {
-      instance = new VendaModel();
-    }
-    return instance;
+
+  private static Connection obterConexao() throws SQLException {
+    //Estabelecer uma conexão com o banco de dados.
+    String url = "jdbc:derby://localhost:1527/vendadb;create=true";
+    String user = "app";
+    String password = "app";
+    return DriverManager.getConnection(url, user, password);
   }
 
-  private VendaModel() {
-    // Obter conexão com o banco de dados.
-    try {
-      conexao = DriverManager.getConnection("jdbc:derby://localhost:1527/vendadb;create=true", "app", "app");
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-
+  public static void incluir(Venda venda) throws SQLException {
+    Connection conn = obterConexao();
+    
+    //Obter sentença SQL.
+    String sql = "insert into venda (codigo, produto, quantidade) values (?, ?, ?)";
+    PreparedStatement pstmt = conn.prepareStatement(sql);
+    pstmt.setString(1, venda.getCodigo());
+    pstmt.setString(2, venda.getProduto());
+    pstmt.setInt(3, venda.getQuantidade());
+    pstmt.execute();
   }
 
-  public String gravar(String codigo, String produto, int quantidade) {
+  public static void salvar(Venda venda) throws SQLException {
+    Connection conn = obterConexao();
 
-    try {
-      // Criando uma sentença.
-      PreparedStatement stmt = conexao.prepareStatement(
-          "insert into venda "
-          + "(codigo, produto, quantidade) values (?, ?, ?)");
-      
-      stmt.setString(1, codigo);
-      stmt.setString(2, produto);
-      stmt.setInt(3, quantidade);
+    //Obter sentença SQL.
+    String sql = "update venda set produto = ?, quantidade = ? where codigo = ?";
+    PreparedStatement pstmt = conn.prepareStatement(sql);
+    pstmt.setString(1, venda.getProduto());
+    pstmt.setInt(2, venda.getQuantidade());
+    pstmt.setString(3, venda.getCodigo());
+    pstmt.execute();
+  }
 
-      stmt.executeUpdate();
-
-    } catch (Exception e) {
-      return e.getMessage();
+  public static List<Venda> listar() throws SQLException {
+    Connection conn = obterConexao();
+    
+    Statement stmt = conn.createStatement();
+    String sql = "select codigo, produto, quantidade from venda order by codigo";
+    ResultSet rs = stmt.executeQuery(sql);
+  
+    List<Venda> listaDeVendas = new ArrayList<Venda>();
+    while (rs.next()) {
+      // Cria um venda para o registro.
+      Venda venda = new Venda();
+      venda.setCodigo(rs.getString("codigo"));
+      venda.setProduto(rs.getString("produto"));
+      venda.setQuantidade(rs.getInt("quantidade"));
+      // Adiciona o venda na lista de vendas.
+      listaDeVendas.add(venda);
     }
+    return listaDeVendas;
+  }
 
-    return "Operação realizada com sucesso";
+  public static void excluir(Venda venda) throws SQLException {
+    Connection conn = obterConexao();
+    
+    //Obter sentença SQL.
+    String sql = "delete from venda where codigo = ?";
+    PreparedStatement pstmt = conn.prepareStatement(sql);
+    pstmt.setString(1, venda.getCodigo());
+    pstmt.execute();
   }
 
 }
