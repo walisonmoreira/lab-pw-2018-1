@@ -2,23 +2,44 @@ package pw.venda.jdbc;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.Statement;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 public class VendaModel {
+  
+  private static VendaModel instance;
+  private Connection conexao;
+  
+  public static VendaModel getInstance() {
+    if (instance == null) {
+      instance = new VendaModel();
+    }
+    return instance;
+  }
 
-  public static String gravar(String codigo, String produto, int quantidade) {
+  private VendaModel() {
+    // Obter conexão com o banco de dados.
+    try {
+      conexao = DriverManager.getConnection("jdbc:derby://localhost:1527/vendadb;create=true", "app", "app");
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+
+  }
+
+  public String gravar(String codigo, String produto, int quantidade) {
 
     try {
-      // Obter conexão com o banco de dados.
-      Connection conexao = DriverManager.getConnection("jdbc:derby://localhost:1527/vendadb;create=true", "app", "app");
       // Criando uma sentença.
-      Statement stmt = conexao.createStatement();
-      //Executar o SQL de inclusão no banco de dados.
-      stmt.executeUpdate(
-          "insert into venda (codigo, produto, quantidade) values ('"
-          + codigo + "', '"
-          + produto + "', "
-          + quantidade + ")");
+      PreparedStatement stmt = conexao.prepareStatement(
+          "insert into venda "
+          + "(codigo, produto, quantidade) values (?, ?, ?)");
+      
+      stmt.setString(1, codigo);
+      stmt.setString(2, produto);
+      stmt.setInt(3, quantidade);
+
+      stmt.executeUpdate();
 
     } catch (Exception e) {
       return e.getMessage();

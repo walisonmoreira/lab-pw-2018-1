@@ -28,8 +28,8 @@ public class VendaController extends HttpServlet {
         	int quantidade = Integer.parseInt(quantidadeStr);
 
             //Executando o model.
-            
-            mensagem = VendaModel.gravar(codigo, produto, quantidade);
+            VendaModel vendaModel = VendaModel.getInstance();
+            mensagem = vendaModel.gravar(codigo, produto, quantidade);
         }
 
         //Adiciona a variável na requisição para o JSP trabalhar.
