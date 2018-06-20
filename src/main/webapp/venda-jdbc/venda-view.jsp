@@ -56,6 +56,7 @@
             <td>#</td>
           </tr>
           <%
+          //Obtendo a lista de vendas definida no controller.
           List<Venda> vendas = (List<Venda>) request.getAttribute("vendas");
           for (Venda v:vendas) {
           %>
