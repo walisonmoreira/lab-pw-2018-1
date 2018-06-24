@@ -24,10 +24,6 @@ Senha: `app`
 
 ### Tabelas
 
-`
-CREATE TABLE VENDA (
-  CODIGO VARCHAR(100),
-  PRODUTO VARCHAR(100),
-  QUANTIDADE INTEGER
-)
-`
+`create table venda (codigo varchar(100), produto varchar(100), quantidade integer)`
+
+`create table conta (numero int, saldo decimal)`

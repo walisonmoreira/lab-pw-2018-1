@@ -13,8 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 public class VendaController extends HttpServlet {
 
   @Override
-  protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    
+  protected void service(
+      HttpServletRequest request,
+      HttpServletResponse response) throws ServletException, IOException {
+
     String op = request.getParameter("op");
     op = (op == null ? "" : op);
 
@@ -40,11 +42,11 @@ public class VendaController extends HttpServlet {
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
-    
-    //Adiciona a variável na requisição para o JSP trabalhar.
+
+    // Adiciona a variável na requisição para o JSP trabalhar.
     request.setAttribute("vendas", vendas);
 
-    //Redireciona requisição para o JSP.
+    // Redireciona requisição para o JSP.
     request.
       getRequestDispatcher("/venda-jdbc/venda-view.jsp").
       forward(request, response);

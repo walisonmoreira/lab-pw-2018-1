@@ -52,6 +52,12 @@
       <artifactId>derbyclient</artifactId>
       <version>${derby.version}</version>
     </dependency>
+    <!-- Para usar JPA com Hibernate. -->
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-entitymanager</artifactId>
+      <version>4.3.1.Final</version>
+    </dependency>
   </dependencies>
 
   <!-- Configurações de construção do projeto. -->

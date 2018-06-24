@@ -1,8 +1,10 @@
 /.idea/
 /.settings/
-/vendadb/
+/contadb/
 /target/
+/vendadb/
+/*.iml
 /.classpath
 /.project
-/*.iml
 /derby.log
+/professoresdb/
